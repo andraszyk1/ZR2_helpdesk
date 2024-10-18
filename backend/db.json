@@ -1,0 +1,42 @@
+{
+  "zgloszenia": [
+    {
+      "tytul": "nowe",
+      "opiekun": "lukasz",
+      "lokalizacja": "Tychy",
+      "id": 19
+    },
+    {
+      "tytul": "pop",
+      "opiekun": "nowe",
+      "lokalizacja": "Tychy",
+      "id": 20
+    },
+    {
+      "tytul": "nowe",
+      "opiekun": "Stare",
+      "lokalizacja": "Torun",
+      "id": 21
+    }
+  ],
+  "words": [
+    {
+      "id": 1,
+      "word": "kot",
+      "translation": "cat",
+      "category": "noun"
+    },
+    {
+      "id": 2,
+      "word": "pies",
+      "translation": "dog",
+      "category": "noun"
+    },
+    {
+      "id": 3,
+      "word": "skakać",
+      "translation": "jump",
+      "category": "verb"
+    }
+  ]
+}
