@@ -1,5 +1,18 @@
 {
-  "zgloszenia": [],
+  "zgloszenia": [
+    {
+      "tytul": "tytul",
+      "opiekun": "opiekun",
+      "lokalizacja": "Tychy",
+      "id": 1
+    },
+    {
+      "tytul": "stera",
+      "opiekun": " nowe",
+      "lokalizacja": "Tychy",
+      "id": 2
+    }
+  ],
   "words": [
     {
       "id": 1,

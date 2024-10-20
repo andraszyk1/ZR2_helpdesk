@@ -9,7 +9,7 @@ export function ticketsReducer(state:any,{type,payload}:any){
     
     if(type=="delete"){
     console.log(state.data);
-      return {...state,data:[...state.data].filter((item:any)=>item.id!=payload),isLoading:false}
+      return {...state,data:[...state.data].filter((item:any)=>item.id!==payload),isLoading:false}
     }
     if(type=="setLokalizacja"){
 
