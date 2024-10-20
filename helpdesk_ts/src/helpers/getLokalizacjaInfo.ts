@@ -1,10 +1,13 @@
 export function getLokalizacjaInfo(lokalizacja:string){
-    for (let index = 0; index < 1000; index++) {
-console.log("getLokalizacjaInfo");
+//     for (let index = 0; index < 1000; index++) {
+// console.log("getLokalizacjaInfo");
 
-    }
+//     }
 
     switch (lokalizacja) {
+    case "":
+        return "Wszystkie Lokalizacje"
+        break;
     case "Tychy":
         return "Tychy to lokalizacja na południu Polski"
         break;

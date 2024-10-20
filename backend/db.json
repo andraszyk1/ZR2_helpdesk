@@ -1,24 +1,5 @@
 {
-  "zgloszenia": [
-    {
-      "tytul": "nowe",
-      "opiekun": "lukasz",
-      "lokalizacja": "Tychy",
-      "id": 19
-    },
-    {
-      "tytul": "pop",
-      "opiekun": "nowe",
-      "lokalizacja": "Tychy",
-      "id": 20
-    },
-    {
-      "tytul": "nowe",
-      "opiekun": "Stare",
-      "lokalizacja": "Torun",
-      "id": 21
-    }
-  ],
+  "zgloszenia": [],
   "words": [
     {
       "id": 1,

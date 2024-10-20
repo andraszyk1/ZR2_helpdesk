@@ -1,89 +1,37 @@
-import { useEffect, useMemo, useState } from "react";
-import BtnCategory from "../components/Buttons/BtnCategory";
-import { AddTicket } from "../components/Forms/AddTicket/AddTicket";
-import Tickets from "../components/Tables/Tickets";
-import { TicketContext } from "../contexts/TicketContext";
-import { getLokalizacjaInfo } from "../helpers/getLokalizacjaInfo";
-import Filters from "../components/Filters";
+import { useMemo, useReducer } from "react";
 import { Link } from "react-router-dom";
+import Filters from "../components/Filters";
+import Tickets from "../components/Tables/Tickets";
+import { getLokalizacjaInfo } from "../helpers/getLokalizacjaInfo";
+import { useGetData } from "../hooks/useGetData";
+import { ticketsReducer } from "../reducer/ticketReducer";
 export interface TicketInterface {
-  id: number;
+  id?: number;
   tytul: string;
   opiekun: string;
   lokalizacja: string;
 }
-function TicketsScreen({ onError }) {
-  const [data, setData] = useState<TicketInterface[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [selectedLokalizacja, setSelectedLokalizacja] = useState<string>("");
 
-  useEffect(() => {
-    let isCanceled = false;
-    const params =
-      selectedLokalizacja === "" ? "" : `?lokalizacja=${selectedLokalizacja}`;
-    fetch(`http://localhost:3000/zgloszenia${params}`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw Error("Bład ladowania danych");
-      })
-      .then((res) => {
-        if (!isCanceled) {
-          setData(res);
-          setIsLoading(false);
-        }
-      })
-      .catch(onError);
-    return () => {
-      isCanceled = true;
-    };
-  }, [selectedLokalizacja]);
+function TicketsScreen({ onError}) {
+  const [{selectedLokalizacja},dispatch]=useReducer(ticketsReducer,{
+  
+    selectedLokalizacja:""
+  })
+  const {data:dataFromHook,isLoading:isLoadingFromHook}=useGetData(selectedLokalizacja,onError)
+  
 
-  const handleAddTicket = (data: TicketInterface) => {
-    fetch("http://localhost:3000/zgloszenia", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res) {
-          setData((prev) => [...prev, res]);
-          setIsLoading(false);
-        } else {
-          throw Error("Bład dodawania zgłoszenia");
-        }
-      })
-      .catch(onError);
-  };
-  const handleDeleteTicket = (id: number) => {
-    fetch(`http://localhost:3000/zgloszenia/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        if (res.ok) {
-          setData((prev) => prev.filter((x: TicketInterface) => x.id != id));
-          setIsLoading(false);
-        } else {
-          throw new Error("Bląd podczas usuwania zgłoszenia");
-        }
-      })
-      .catch(onError);
-  };
+ 
   const handleFilterLokalizacja = (lokalizacja: string) => {
-    console.log(lokalizacja);
-    setSelectedLokalizacja(lokalizacja);
+    dispatch({type:"setLokalizacja",payload:lokalizacja});
   };
   const lokalizacjaInfo = useMemo(
     () => getLokalizacjaInfo(selectedLokalizacja),
     [selectedLokalizacja]
   );
-  if (isLoading) {
+  if (isLoadingFromHook) {
     return <p>Ładowanie strony</p>;
   }
+  
   return (
     <>
       {lokalizacjaInfo && (
@@ -92,17 +40,12 @@ function TicketsScreen({ onError }) {
         </div>
       )}
       <div>
-        <Link to={"/tickets/add"} >Link</Link>
-        <TicketContext.Provider value={{ lokalizacja: selectedLokalizacja,setTickets:handleAddTicket,tickets:data}}>
-          <AddTicket setTickets={handleAddTicket} tickets={data} />
-        </TicketContext.Provider>
+        <Link to={"/tickets/add"} >Dodaj Zgłoszenie</Link>
       </div>
       <div>
         <Filters handleFilterLokalizacja={handleFilterLokalizacja} />
-        {data?.length > 0 ? (
-          <TicketContext.Provider value={{ lokalizacja: selectedLokalizacja }}>
-            <Tickets deleteTicket={handleDeleteTicket} tickets={data} />
-          </TicketContext.Provider>
+        {dataFromHook?.length > 0 ? (
+            <Tickets lokalizacja={selectedLokalizacja} tickets={dataFromHook} />
         ) : (
           "Brak wynikow wyszukiwania"
         )}

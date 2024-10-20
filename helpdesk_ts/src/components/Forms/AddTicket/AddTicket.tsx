@@ -1,57 +1,52 @@
-import { forwardRef, useContext, useRef, useState } from "react";
-import { TicketContext } from "../../../contexts/TicketContext";
-const Input = forwardRef(function Input(props, ref) {
-  return (
-    <input ref={ref} type="text" id="tytul" className="p-1 bg-slate-200 w-32" />
-  );
-});
-export function AddTicket({ setTickets, tickets }) {
-  const {lokalizacja:lokalizacjaContext,setSelectedData,selectedData}=useContext(TicketContext)
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAddData } from "../../../hooks/useAddData";
+
+export function AddTicket({onError}:any) {
+  
   const [opiekun, setOpiekun] = useState<string>("");
+  const [tytul, setTytul] = useState<string>("");
   const [lokalizacja, setLokalizacja] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const tytulRef = useRef<null | any>(null);
+  const {addData}=useAddData(onError)
+ 
+  const navigate=useNavigate()
   const handleOnSubmit = (e: Event) => {
     e.preventDefault();
-    let tytul = tytulRef.current.value;
-
     if ([tytul, opiekun, lokalizacja].some((x) => x === "")) {
       setError("Wprowadz wartosc");
       setTimeout(() => {
         setError("");
       }, 2000);
     } else {
-      setTickets({
+      addData({
         tytul: tytul,
         opiekun: opiekun,
-        lokalizacja: lokalizacja,
-      });
-      //   setTytul("");
+        lokalizacja: lokalizacja
+      })
+      setTytul("");
       setOpiekun("");
       setLokalizacja("");
+      navigate("/tickets")
+   
+     
+      
     }
   };
   return (
     <div className="flex flex-col">
-      <div className="w-64 font-bold text-3xl">Dodaj Zgłoszenie {selectedData}</div>
+      <div className="w-64 font-bold text-3xl">Dodaj Zgłoszenie</div>
       <div className="flex flex-col gap-4 ">
         <form onSubmit={handleOnSubmit}>
           <div className="flex flex-row gap-4">
             <label htmlFor="tytul">Tytuł</label>
+           
             <input
-              className="border-r-5 border-solid border-spacing-2 w-96 rounded-xl bg-gray-400 p-2 transition-colors  hover:bg-slate-300"
-              value={selectedData}
-              name="selectedData"
-              type="input"
-              onChange={(e) => setSelectedData(e.target.value)}
-            />
-            <Input
-              ref={tytulRef}
               className="border-r-5 border-solid border-spacing-2 rounded-xl w-96 bg-gray-400 p-2 transition-colors hover:bg-slate-300"
-              //   value={tytul}
+              value={tytul}
               name="tytul"
               type="input"
-              //   onChange={(e) => setTytul(e.target.value)}
+              onChange={(e) => setTytul(e.target.value)}
             />
             <label htmlFor="opiekun">Opiekun</label>
             <input

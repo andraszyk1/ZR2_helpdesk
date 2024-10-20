@@ -3,12 +3,12 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Home from "./screens/Home";
 
-import { EditTicket } from "./components/Forms/EditTicket/EditTicket";
-import Ticket from "./screens/Ticket";
-import TicketsScreen,{TicketInterface} from "./screens/TicketsSctreen";
+import { useCallback, useState } from "react";
 import { AddTicket } from "./components/Forms/AddTicket/AddTicket";
-import { useCallback, useContext, useState } from "react";
+import { EditTicket } from "./components/Forms/EditTicket/EditTicket";
 import TicketContextComponent from "./contexts/TicketContextComponent";
+import Ticket from "./screens/Ticket";
+import TicketsScreen from "./screens/TicketsSctreen";
 
 
 function App() {

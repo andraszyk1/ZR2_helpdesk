@@ -1,5 +1,7 @@
+import { ReactNode } from "react"
+
 interface props {
-    item:string,
+    item:ReactNode,
     highlight:boolean
 }
 function Row({item,highlight}:props) {

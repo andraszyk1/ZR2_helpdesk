@@ -13,7 +13,7 @@ function Filters({handleFilterLokalizacja}) {
         Wszystkie lokalizacje
       </BtnCategory>
       <BtnCategory
-        onClick={() => handleFilterLokalizacja("Toruń")}
+        onClick={() => handleFilterLokalizacja("Torun")}
         className="w-40 bg-slate-300 hover:bg-slate-100"
       >
         Toruń
