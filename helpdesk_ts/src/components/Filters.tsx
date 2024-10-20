@@ -1,10 +1,9 @@
-import { useContext, useMemo } from 'react'
+import { memo, useContext } from 'react'
 import { TicketContext } from '../contexts/TicketContext'
 import BtnCategory from './Buttons/BtnCategory'
 
 function Filters() {
   const {state,dispatch}=useContext(TicketContext)
-  useMemo(()=>dispatch,[state.selectedLokalizacja])
   
   return (
     <div className="flex flex-col items-start">
@@ -33,4 +32,4 @@ function Filters() {
   )
 }
 
-export default Filters
+export default memo(Filters)

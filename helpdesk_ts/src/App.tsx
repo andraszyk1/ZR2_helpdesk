@@ -1,9 +1,8 @@
-import { BrowserRouter, createBrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Home from "./screens/Home";
 
-import { useCallback, useState } from "react";
 import { AddTicket } from "./components/Forms/AddTicket/AddTicket";
 import { EditTicket } from "./components/Forms/EditTicket/EditTicket";
 import TicketContextComponent from "./contexts/TicketContextComponent";

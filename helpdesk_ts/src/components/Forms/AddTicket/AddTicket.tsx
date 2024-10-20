@@ -9,7 +9,9 @@ export function AddTicket({onError}:any) {
   const [lokalizacja, setLokalizacja] = useState<string>("");
   const [error, setError] = useState<string>("");
   const {addData}=useAddData(onError)
- 
+ interface Submit {
+  onSubmit:()=>void
+ }
   const navigate=useNavigate()
   const handleOnSubmit = (e: Event) => {
     e.preventDefault();

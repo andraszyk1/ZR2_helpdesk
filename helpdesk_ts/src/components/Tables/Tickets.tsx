@@ -3,9 +3,7 @@ import { useDeleteData } from "../../hooks/useDeleteData";
 import Row from "./Row";
 import { TicketContext } from "../../contexts/TicketContext";
 import { useGetData } from "../../hooks/useGetData";
-type props = {
-  onError: (err: string) => void | {};
-};
+
 interface DataInterface {
   id: string;
   tytul: string;
@@ -33,7 +31,7 @@ function Tickets() {
   return (
     <div className="flex flex-col gap-4">
       <div className="w-32 font-bold text-3xl">
-        Zgłoszenia {state.selectedLokalizacja}{" "}
+        Zgłoszenia
       </div>
       <div className="flex flex-col gap-4 ">
         {state.data?.map(

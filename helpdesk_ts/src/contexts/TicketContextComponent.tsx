@@ -6,11 +6,12 @@ interface Props {
 }
 
 
+
 function TicketContextComponent({ children }: Props) {
   const [state, dispatch] = useReducer(ticketsReducer, {});
   const [error, setError] = useState<string | null>(null);
   const handleError = useCallback((err: string) => {
-    setError(err);
+    setError(err?.message);
     setTimeout(() => {
       setError(null);
     }, 3000);
